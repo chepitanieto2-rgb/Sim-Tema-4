@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ScrollPane?>
+
+
+<BorderPane
+        xmlns="http://javafx.com/javafx"
+        xmlns:fx="http://javafx.com/fxml"
+        fx:controller="com.nietosystems.simulacion.controller.EsperaController"
+        prefWidth="1000.0"
+        style="-fx-background-color: #F4F6F8;">
+
+    <!-- ===================================================== -->
+    <!-- ENCABEZADO -->
+    <!-- ===================================================== -->
+
+    <top>
+
+        <VBox
+                alignment="CENTER"
+                spacing="5"
+                style="-fx-background-color: #1F4E78;">
+
+            <padding>
+                <Insets
+                        top="20"
+                        right="20"
+                        bottom="20"
+                        left="20"/>
+            </padding>
+
+            <Label
+                    text="SIMULADOR DE LÍNEA DE ESPERA"
+                    style="-fx-text-fill: white;
+                           -fx-font-size: 26px;
+                           -fx-font-weight: bold;"/>
+
+            <Label
+                    text="Simulación de llegada y atención de clientes"
+                    style="-fx-text-fill: #D9EAF7;
+                           -fx-font-size: 14px;"/>
+
+        </VBox>
+
+    </top>
+
+
+    <!-- ===================================================== -->
+    <!-- CONTENIDO -->
+    <!-- ===================================================== -->
+
+    <center>
+
+        <ScrollPane
+                fitToWidth="true"
+                hbarPolicy="NEVER"
+                vbarPolicy="AS_NEEDED"
+                pannable="true">
+
+        <content>
+
+        <VBox
+                spacing="15">
+
+            <padding>
+                <Insets
+                        top="25"
+                        right="30"
+                        bottom="25"
+                        left="30"/>
+            </padding>
+
+
+            <!-- ================================================= -->
+            <!-- PARÁMETROS -->
+            <!-- ================================================= -->
+
+            <Label
+                    text="PARÁMETROS DE LA SIMULACIÓN"
+                    style="-fx-font-size: 18px;
+                           -fx-font-weight: bold;
+                           -fx-text-fill: #1F1F1F;"/>
+
+
+            <GridPane
+                    hgap="15"
+                    vgap="12">
+
+
+                <!-- CLIENTES -->
+
+                <Label
+                        text="Número de clientes:"
+                        GridPane.columnIndex="0"
+                        GridPane.rowIndex="0"/>
+
+                <TextField
+                        fx:id="txtClientes"
+                        promptText="Ej. 50"
+                        prefWidth="150"
+                        GridPane.columnIndex="1"
+                        GridPane.rowIndex="0"/>
+
+
+                <!-- SERVIDORES -->
+
+                <Label
+                        text="Número de servidores:"
+                        GridPane.columnIndex="2"
+                        GridPane.rowIndex="0"/>
+
+                <TextField
+                        fx:id="txtServidores"
+                        promptText="Ej. 3"
+                        prefWidth="150"
+                        GridPane.columnIndex="3"
+                        GridPane.rowIndex="0"/>
+
+
+                <!-- LLEGADA MÍNIMA -->
+
+                <Label
+                        text="Tiempo mínimo de llegada:"
+                        GridPane.columnIndex="0"
+                        GridPane.rowIndex="1"/>
+
+                <TextField
+                        fx:id="txtLlegadaMinima"
+                        promptText="Ej. 2"
+                        prefWidth="150"
+                        GridPane.columnIndex="1"
+                        GridPane.rowIndex="1"/>
+
+
+                <!-- LLEGADA MÁXIMA -->
+
+                <Label
+                        text="Tiempo máximo de llegada:"
+                        GridPane.columnIndex="2"
+                        GridPane.rowIndex="1"/>
+
+                <TextField
+                        fx:id="txtLlegadaMaxima"
+                        promptText="Ej. 8"
+                        prefWidth="150"
+                        GridPane.columnIndex="3"
+                        GridPane.rowIndex="1"/>
+
+
+                <!-- SERVICIO MÍNIMO -->
+
+                <Label
+                        text="Tiempo mínimo de servicio:"
+                        GridPane.columnIndex="0"
+                        GridPane.rowIndex="2"/>
+
+                <TextField
+                        fx:id="txtServicioMinimo"
+                        promptText="Ej. 4"
+                        prefWidth="150"
+                        GridPane.columnIndex="1"
+                        GridPane.rowIndex="2"/>
+
+
+                <!-- SERVICIO MÁXIMO -->
+
+                <Label
+                        text="Tiempo máximo de servicio:"
+                        GridPane.columnIndex="2"
+                        GridPane.rowIndex="2"/>
+
+                <TextField
+                        fx:id="txtServicioMaximo"
+                        promptText="Ej. 10"
+                        prefWidth="150"
+                        GridPane.columnIndex="3"
+                        GridPane.rowIndex="2"/>
+
+            </GridPane>
+
+
+            <!-- ================================================= -->
+            <!-- BOTONES -->
+            <!-- ================================================= -->
+
+            <HBox
+                    spacing="15"
+                    alignment="CENTER_LEFT">
+
+                <Button
+                        text="INICIAR SIMULACIÓN"
+                        onAction="#simular"
+                        prefWidth="200"
+                        prefHeight="40"
+                        style="-fx-background-color: #2E75B6;
+                               -fx-text-fill: white;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 6;"/>
+
+                <Button
+                        text="LIMPIAR"
+                        onAction="#limpiar"
+                        prefWidth="120"
+                        prefHeight="40"
+                        style="-fx-background-color: #7F8C8D;
+                               -fx-text-fill: white;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 6;"/>
+
+            </HBox>
+
+
+            <Separator/>
+
+
+            <!-- ================================================= -->
+            <!-- RESULTADOS -->
+            <!-- ================================================= -->
+
+            <Label
+                    text="RESULTADOS DE LA SIMULACIÓN"
+                    style="-fx-font-size: 18px;
+                           -fx-font-weight: bold;
+                           -fx-text-fill: #1F1F1F;"/>
+
+
+            <HBox
+                    spacing="30">
+
+
+                <VBox spacing="5">
+
+                    <Label
+                            text="Espera promedio"
+                            style="-fx-font-weight: bold;"/>
+
+                    <Label
+                            fx:id="lblEsperaPromedio"
+                            text="0.00 min"
+                            style="-fx-font-size: 16px;
+                                   -fx-text-fill: #2E75B6;"/>
+
+                </VBox>
+
+
+                <VBox spacing="5">
+
+                    <Label
+                            text="Espera máxima"
+                            style="-fx-font-weight: bold;"/>
+
+                    <Label
+                            fx:id="lblEsperaMaxima"
+                            text="0.00 min"
+                            style="-fx-font-size: 16px;
+                                   -fx-text-fill: #C00000;"/>
+
+                </VBox>
+
+
+                <VBox spacing="5">
+
+                    <Label
+                            text="Clientes que esperaron"
+                            style="-fx-font-weight: bold;"/>
+
+                    <Label
+                            fx:id="lblClientesEsperaron"
+                            text="0"
+                            style="-fx-font-size: 16px;
+                                   -fx-text-fill: #548235;"/>
+
+                </VBox>
+
+
+                <VBox spacing="5">
+
+                    <Label
+                            text="Utilización de servidores"
+                            style="-fx-font-weight: bold;"/>
+
+                    <Label
+                            fx:id="lblUtilizacion"
+                            text="0.00 %"
+                            style="-fx-font-size: 16px;
+                                   -fx-text-fill: #7030A0;"/>
+
+                </VBox>
+
+            </HBox>
+
+
+            <Separator/>
+
+
+            <!-- ================================================= -->
+            <!-- TABLA -->
+            <!-- ================================================= -->
+
+            <Label
+                    text="DETALLE DE CLIENTES"
+                    style="-fx-font-size: 18px;
+                           -fx-font-weight: bold;
+                           -fx-text-fill: #1F1F1F;"/>
+
+
+            <TableView
+                    fx:id="tablaClientes"
+                    prefHeight="250">
+
+                <columns>
+
+
+                    <TableColumn
+                            fx:id="colCliente"
+                            text="Cliente"
+                            prefWidth="80"/>
+
+
+                    <TableColumn
+                            fx:id="colServidor"
+                            text="Servidor"
+                            prefWidth="90"/>
+
+
+                    <TableColumn
+                            fx:id="colLlegada"
+                            text="Llegada"
+                            prefWidth="120"/>
+
+
+                    <TableColumn
+                            fx:id="colServicio"
+                            text="Servicio"
+                            prefWidth="120"/>
+
+
+                    <TableColumn
+                            fx:id="colEspera"
+                            text="Espera"
+                            prefWidth="120"/>
+
+
+                    <TableColumn
+                            fx:id="colInicio"
+                            text="Inicio"
+                            prefWidth="120"/>
+
+
+                    <TableColumn
+                            fx:id="colFin"
+                            text="Fin"
+                            prefWidth="120"/>
+
+                </columns>
+
+            </TableView>
+
+
+            <Separator/>
+
+
+            <!-- ================================================= -->
+            <!-- VALIDACIÓN -->
+            <!-- ================================================= -->
+
+            <Label
+                    text="VALIDACIÓN DEL SIMULADOR"
+                    style="-fx-font-size: 18px;
+                           -fx-font-weight: bold;
+                           -fx-text-fill: #1F1F1F;"/>
+
+
+            <GridPane
+                    hgap="15"
+                    vgap="12">
+
+
+                <!-- TIPO DE PRUEBA -->
+
+                <Label
+                        text="Tipo de prueba:"
+                        GridPane.columnIndex="0"
+                        GridPane.rowIndex="0"/>
+
+
+                <ComboBox
+                        fx:id="cmbTipoPrueba"
+                        prefWidth="280"
+                        GridPane.columnIndex="1"
+                        GridPane.rowIndex="0"/>
+
+
+                <!-- REFERENCIA -->
+
+                <Label
+                        text="Valor de referencia o &#10; espera maxima para el cliente:"
+                        GridPane.columnIndex="2"
+                        GridPane.rowIndex="0"/>
+
+
+                <TextField
+                        fx:id="txtReferencia"
+                        promptText="Ej. 5.00"
+                        prefWidth="150"
+                        GridPane.columnIndex="3"
+                        GridPane.rowIndex="0"/>
+
+
+                <!-- SIGNIFICANCIA -->
+
+                <Label
+                        text="Nivel de significancia:"
+                        GridPane.columnIndex="0"
+                        GridPane.rowIndex="1"/>
+
+
+                <TextField
+                        fx:id="txtSignificancia"
+                        text="0.05"
+                        prefWidth="150"
+                        GridPane.columnIndex="1"
+                        GridPane.rowIndex="1"/>
+
+
+            </GridPane>
+
+
+            <Button
+                    text="EJECUTAR PRUEBA DE VALIDACIÓN"
+                    onAction="#validarSimulacion"
+                    prefWidth="250"
+                    prefHeight="40"
+                    style="-fx-background-color: #548235;
+                           -fx-text-fill: white;
+                           -fx-font-weight: bold;
+                           -fx-background-radius: 6;"/>
+
+
+            <!-- ================================================= -->
+            <!-- RESULTADOS DE VALIDACIÓN -->
+            <!-- ================================================= -->
+
+            <HBox
+                    spacing="35">
+
+
+                <VBox spacing="5">
+
+                    <Label
+                            text="Estadístico"
+                            style="-fx-font-weight: bold;"/>
+
+                    <Label
+                            fx:id="lblEstadistico"
+                            text="Pendiente"
+                            style="-fx-font-size: 15px;"/>
+
+                </VBox>
+
+
+                <VBox spacing="5">
+
+                    <Label
+                            text="p-valor"
+                            style="-fx-font-weight: bold;"/>
+
+                    <Label
+                            fx:id="lblPValor"
+                            text="Pendiente"
+                            style="-fx-font-size: 15px;"/>
+
+                </VBox>
+
+            </HBox>
+
+
+            <VBox spacing="5">
+
+                <Label
+                        text="Conclusión"
+                        style="-fx-font-weight: bold;"/>
+
+                <Label
+                        fx:id="lblConclusion"
+                        text="Ejecute una prueba de validación."
+                        wrapText="true"
+                        style="-fx-font-size: 14px;"/>
+
+            </VBox>
+
+
+        </VBox>
+
+        </content>
+
+        </ScrollPane>
+
+    </center>
+
+
+    <!-- ===================================================== -->
+    <!-- PIE -->
+    <!-- ===================================================== -->
+
+    <bottom>
+
+        <HBox
+                alignment="CENTER_RIGHT"
+                style="-fx-background-color: #D9E1F2;">
+
+            <padding>
+                <Insets
+                        top="10"
+                        right="20"
+                        bottom="10"
+                        left="20"/>
+            </padding>
+
+
+            <Button
+                    text="CERRAR"
+                    prefWidth="120"
+                    prefHeight="35"
+                    onAction="#cerrar"
+                    style="-fx-background-color: #C00000;
+                           -fx-text-fill: white;
+                           -fx-font-weight: bold;
+                           -fx-background-radius: 6;"/>
+
+        </HBox>
+
+    </bottom>
+
+</BorderPane>

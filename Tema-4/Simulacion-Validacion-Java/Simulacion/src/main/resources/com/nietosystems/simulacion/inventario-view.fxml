@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane
+        xmlns="http://javafx.com/javafx"
+        xmlns:fx="http://javafx.com/fxml"
+        fx:controller="com.nietosystems.simulacion.controller.InventarioController"
+        prefWidth="1000.0"
+        style="-fx-background-color: #F4F6F8;">
+
+    <!-- ENCABEZADO -->
+    <top>
+        <VBox
+                alignment="CENTER"
+                spacing="5"
+                style="-fx-background-color: #548235;">
+
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <Label
+                    text="SIMULACIÓN DE INVENTARIO"
+                    style="-fx-text-fill: white;
+                           -fx-font-size: 26px;
+                           -fx-font-weight: bold;"/>
+
+            <Label
+                    text="Simulación de existencias, demanda y reabastecimiento"
+                    style="-fx-text-fill: #E8F3E2;
+                           -fx-font-size: 14px;"/>
+        </VBox>
+    </top>
+
+    <!-- CONTENIDO -->
+    <center>
+
+        <ScrollPane
+                fitToWidth="true"
+                hbarPolicy="NEVER"
+                vbarPolicy="AS_NEEDED"
+                pannable="true">
+
+            <content>
+
+                <VBox spacing="15">
+
+                    <padding>
+                        <Insets top="25" right="30" bottom="25" left="30"/>
+                    </padding>
+
+                    <!-- PARÁMETROS -->
+
+                    <Label
+                            text="PARÁMETROS DEL INVENTARIO"
+                            style="-fx-font-size: 18px;
+                                   -fx-font-weight: bold;"/>
+
+                    <GridPane hgap="15" vgap="12">
+
+                        <Label
+                                text="Inventario inicial:"
+                                GridPane.columnIndex="0"
+                                GridPane.rowIndex="0"/>
+
+                        <TextField
+                                fx:id="txtInventarioInicial"
+                                promptText="Ej. 100"
+                                prefWidth="150"
+                                GridPane.columnIndex="1"
+                                GridPane.rowIndex="0"/>
+
+                        <Label
+                                text="Número de períodos:"
+                                GridPane.columnIndex="2"
+                                GridPane.rowIndex="0"/>
+
+                        <TextField
+                                fx:id="txtPeriodos"
+                                promptText="Ej. 30"
+                                prefWidth="150"
+                                GridPane.columnIndex="3"
+                                GridPane.rowIndex="0"/>
+
+                        <Label
+                                text="Demanda mínima:"
+                                GridPane.columnIndex="0"
+                                GridPane.rowIndex="1"/>
+
+                        <TextField
+                                fx:id="txtDemandaMinima"
+                                promptText="Ej. 5"
+                                prefWidth="150"
+                                GridPane.columnIndex="1"
+                                GridPane.rowIndex="1"/>
+
+                        <Label
+                                text="Demanda máxima:"
+                                GridPane.columnIndex="2"
+                                GridPane.rowIndex="1"/>
+
+                        <TextField
+                                fx:id="txtDemandaMaxima"
+                                promptText="Ej. 20"
+                                prefWidth="150"
+                                GridPane.columnIndex="3"
+                                GridPane.rowIndex="1"/>
+
+                        <Label
+                                text="Límite de artículos para reorden:"
+                                GridPane.columnIndex="0"
+                                GridPane.rowIndex="2"/>
+
+                        <TextField
+                                fx:id="txtPuntoReorden"
+                                promptText="Ej. 30"
+                                prefWidth="150"
+                                GridPane.columnIndex="1"
+                                GridPane.rowIndex="2"/>
+
+                        <Label
+                                text="Cantidad de resurtido&#10;para reorden:"
+                                GridPane.columnIndex="2"
+                                GridPane.rowIndex="2"/>
+
+                        <TextField
+                                fx:id="txtCantidadPedido"
+                                promptText="Ej. 50"
+                                prefWidth="150"
+                                GridPane.columnIndex="3"
+                                GridPane.rowIndex="2"/>
+
+                    </GridPane>
+
+                    <!-- BOTONES -->
+
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+
+                        <Button
+                                text="INICIAR SIMULACIÓN"
+                                onAction="#simular"
+                                prefWidth="200"
+                                prefHeight="40"
+                                style="-fx-background-color: #548235;
+                                       -fx-text-fill: white;
+                                       -fx-font-weight: bold;
+                                       -fx-background-radius: 6;"/>
+
+                        <Button
+                                text="LIMPIAR"
+                                onAction="#limpiar"
+                                prefWidth="120"
+                                prefHeight="40"
+                                style="-fx-background-color: #7F8C8D;
+                                       -fx-text-fill: white;
+                                       -fx-font-weight: bold;
+                                       -fx-background-radius: 6;"/>
+
+                    </HBox>
+
+                    <Separator/>
+
+                    <!-- RESULTADOS -->
+
+                    <Label
+                            text="RESULTADOS DE LA SIMULACIÓN"
+                            style="-fx-font-size: 18px;
+                                   -fx-font-weight: bold;"/>
+
+                    <HBox spacing="30">
+
+                        <VBox spacing="5">
+                            <Label
+                                    text="Inventario promedio"
+                                    style="-fx-font-weight: bold;"/>
+                            <Label
+                                    fx:id="lblInventarioPromedio"
+                                    text="0.00 unidades"
+                                    style="-fx-font-size: 16px;
+                                           -fx-text-fill: #548235;"/>
+                        </VBox>
+
+                        <VBox spacing="5">
+                            <Label
+                                    text="Inventario mínimo"
+                                    style="-fx-font-weight: bold;"/>
+                            <Label
+                                    fx:id="lblInventarioMinimo"
+                                    text="0 unidades"
+                                    style="-fx-font-size: 16px;
+                                           -fx-text-fill: #C00000;"/>
+                        </VBox>
+
+                        <VBox spacing="5">
+                            <Label
+                                    text="Inventario resurtido"
+                                    style="-fx-font-weight: bold;"/>
+                            <Label
+                                    fx:id="lblInventarioResurtido"
+                                    text="0"
+                                    style="-fx-font-size: 16px;
+                                           -fx-text-fill: #2E75B6;"/>
+                        </VBox>
+
+                        <VBox spacing="5">
+                            <Label
+                                    text="Faltante total"
+                                    style="-fx-font-weight: bold;"/>
+                            <Label
+                                    fx:id="lblFaltanteTotal"
+                                    text="0 unidades"
+                                    style="-fx-font-size: 16px;
+                                           -fx-text-fill: #C00000;"/>
+                        </VBox>
+
+                    </HBox>
+
+                    <!-- ESTADO DEL INVENTARIO -->
+
+                    <VBox
+                            spacing="5"
+                            style="-fx-background-color: #FFF4CE;
+                                   -fx-padding: 15;
+                                   -fx-background-radius: 6;">
+
+                        <Label
+                                text="ESTADO DEL INVENTARIO"
+                                style="-fx-font-size: 16px;
+                                       -fx-font-weight: bold;"/>
+
+                        <Label
+                                fx:id="lblEstadoInventario"
+                                text="Ejecute la simulación para conocer el estado del inventario."
+                                wrapText="true"
+                                style="-fx-font-size: 14px;"/>
+
+                    </VBox>
+
+                    <Separator/>
+
+                    <!-- TABLA -->
+
+                    <Label
+                            text="DETALLE DE LA SIMULACIÓN"
+                            style="-fx-font-size: 18px;
+                                   -fx-font-weight: bold;"/>
+
+                    <TableView
+                            fx:id="tablaInventario"
+                            prefHeight="250">
+
+                        <columns>
+
+                            <TableColumn
+                                    fx:id="colPeriodo"
+                                    text="Periodo"
+                                    prefWidth="90"/>
+
+                            <TableColumn
+                                    fx:id="colInventarioInicial"
+                                    text="Inventario inicial"
+                                    prefWidth="150"/>
+
+                            <TableColumn
+                                    fx:id="colDemanda"
+                                    text="Demanda"
+                                    prefWidth="120"/>
+
+                            <TableColumn
+                                    fx:id="colPedido"
+                                    text="Resurtido"
+                                    prefWidth="120"/>
+
+                            <TableColumn
+                                    fx:id="colInventarioFinal"
+                                    text="Inventario final"
+                                    prefWidth="150"/>
+
+                            <TableColumn
+                                    fx:id="colFaltante"
+                                    text="Faltante"
+                                    prefWidth="120"/>
+
+                        </columns>
+
+                    </TableView>
+
+                    <Separator/>
+
+                    <!-- VALIDACIÓN -->
+
+                    <Label
+                            text="VALIDACIÓN DEL SIMULADOR"
+                            style="-fx-font-size: 18px;
+                                   -fx-font-weight: bold;"/>
+
+                    <GridPane hgap="15" vgap="12">
+
+                        <Label
+                                text="Tipo de prueba:"
+                                GridPane.columnIndex="0"
+                                GridPane.rowIndex="0"/>
+
+                        <ComboBox
+                                fx:id="cmbTipoPrueba"
+                                prefWidth="280"
+                                GridPane.columnIndex="1"
+                                GridPane.rowIndex="0"/>
+
+                        <Label
+                                text="Inventario promedio esperado:"
+                                GridPane.columnIndex="2"
+                                GridPane.rowIndex="0"/>
+
+                        <TextField
+                                fx:id="txtReferencia"
+                                promptText="Ej. 50"
+                                prefWidth="150"
+                                GridPane.columnIndex="3"
+                                GridPane.rowIndex="0"/>
+
+                        <Label
+                                text="Nivel de significancia:"
+                                GridPane.columnIndex="0"
+                                GridPane.rowIndex="1"/>
+
+                        <TextField
+                                fx:id="txtSignificancia"
+                                text="0.05"
+                                prefWidth="150"
+                                GridPane.columnIndex="1"
+                                GridPane.rowIndex="1"/>
+
+                    </GridPane>
+
+                    <Button
+                            text="EJECUTAR PRUEBA DE VALIDACIÓN"
+                            onAction="#validarSimulacion"
+                            prefWidth="250"
+                            prefHeight="40"
+                            style="-fx-background-color: #548235;
+                                   -fx-text-fill: white;
+                                   -fx-font-weight: bold;
+                                   -fx-background-radius: 6;"/>
+
+                    <HBox spacing="35">
+
+                        <VBox spacing="5">
+                            <Label
+                                    text="Estadístico t"
+                                    style="-fx-font-weight: bold;"/>
+                            <Label
+                                    fx:id="lblEstadistico"
+                                    text="Pendiente"
+                                    style="-fx-font-size: 15px;"/>
+                        </VBox>
+
+                        <VBox spacing="5">
+                            <Label
+                                    text="p-valor"
+                                    style="-fx-font-weight: bold;"/>
+                            <Label
+                                    fx:id="lblPValor"
+                                    text="Pendiente"
+                                    style="-fx-font-size: 15px;"/>
+                        </VBox>
+
+                    </HBox>
+
+                    <VBox spacing="5">
+
+                        <Label
+                                text="Conclusión"
+                                style="-fx-font-weight: bold;"/>
+
+                        <Label
+                                fx:id="lblConclusion"
+                                text="Ejecute una prueba de validación."
+                                wrapText="true"
+                                style="-fx-font-size: 14px;"/>
+
+                    </VBox>
+
+                </VBox>
+
+            </content>
+
+        </ScrollPane>
+
+    </center>
+
+    <!-- PIE -->
+
+    <bottom>
+
+        <HBox
+                alignment="CENTER_RIGHT"
+                style="-fx-background-color: #D9E1F2;">
+
+            <padding>
+                <Insets top="10" right="20" bottom="10" left="20"/>
+            </padding>
+
+            <Button
+                    text="CERRAR"
+                    prefWidth="120"
+                    prefHeight="35"
+                    onAction="#cerrar"
+                    style="-fx-background-color: #C00000;
+                           -fx-text-fill: white;
+                           -fx-font-weight: bold;
+                           -fx-background-radius: 6;"/>
+
+        </HBox>
+
+    </bottom>
+
+</BorderPane>
